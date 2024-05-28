@@ -26,7 +26,6 @@ class WebView extends StatelessWidget {
           onPageFinished: (String url) {
             log('page finished: $url');
             // ページロード完了後にJavaScriptを実行する
-            // test
             controller.runJavaScript(
                 "let username = document.getElementById('Login_UserName');"
                     "username.value = '$userId';"
