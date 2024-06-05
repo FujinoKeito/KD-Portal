@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
+import 'package:kdportal/header.dart';
 import 'package:kdportal/webview.dart';
 
 class FirstPage1 extends StatefulWidget {
@@ -72,6 +72,7 @@ class FirstPage1State extends State<FirstPage1> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+    appBar: Header(),
     body: Column(
       children: [
         const Padding(
