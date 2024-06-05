@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:kdportal/header.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebView extends StatelessWidget {
@@ -12,9 +13,10 @@ class WebView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     debugPrint('Received text: $userId $password');
+
     controller
-      ..loadRequest(Uri.parse('https://pt.kobedenshi.ac.jp/portal/mobile/LoginSP.aspx'))
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..loadRequest(Uri.parse('https://pt.kobedenshi.ac.jp/portal/mobile/LoginSP.aspx'))
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (int progress) {
@@ -27,12 +29,12 @@ class WebView extends StatelessWidget {
             log('page finished: $url');
             // ページロード完了後にJavaScriptを実行する
             controller.runJavaScript(
-                "let username = document.getElementById('Login_UserName');"
-                    "username.value = '$userId';"
-                    "let userpass = document.getElementById('Login_Password');"
-                    "userpass.value = '$password';"
-                    "const loginbtn = document.getElementById('Login_LoginButton');"
-                    "loginbtn.click();"
+                "let custom_username = document.getElementById('Login_UserName');"
+                    "if (custom_username) { custom_username.value = '$userId'; }"
+                    "let custom_userpass = document.getElementById('Login_Password');"
+                    "if (custom_userpass) { custom_userpass.value = '$password'; }"
+                    "const custom_loginbtn = document.getElementById('Login_LoginButton');"
+                    "if (custom_loginbtn) { custom_loginbtn.click(); }"
             );
           },
           onWebResourceError: (WebResourceError error) {
@@ -44,6 +46,7 @@ class WebView extends StatelessWidget {
         ),
       );
     return Scaffold(
+      appBar: Header(),
       body: SafeArea(
         child: Column(
           children: [
